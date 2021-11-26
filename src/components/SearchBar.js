@@ -42,7 +42,7 @@ const SearchBar = (props) => {
         name="searchImage"
         onChange={(e) => getPhotos(e)}
       />
-      {localStorage.getItem("storageBookmarks") && JSON.parse(localStorage.getItem("storageBookmarks")).length >0 && <FaRegBookmark
+      {localStorage.getItem("storageBookmarks") &&JSON.parse(localStorage.getItem("storageBookmarks")).length >0 && <FaRegBookmark
         onClick={showFavorites}
         className="bookmarkIcon fa-solid"
       ></FaRegBookmark>}
@@ -52,7 +52,3 @@ const SearchBar = (props) => {
 };
 
 export default SearchBar;
-
-
-mongodb+srv://oronbendemo:benoron1234@tabcluster.ytz0u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-mongodb+srv://oronbendemo:benoron1234@tabcluster.ytz0u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
