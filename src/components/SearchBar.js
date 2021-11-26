@@ -52,3 +52,7 @@ const SearchBar = (props) => {
 };
 
 export default SearchBar;
+
+
+mongodb+srv://oronbendemo:benoron1234@tabcluster.ytz0u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+mongodb+srv://oronbendemo:benoron1234@tabcluster.ytz0u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority

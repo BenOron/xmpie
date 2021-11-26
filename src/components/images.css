@@ -44,10 +44,11 @@
     right: 5%;
     position: relative;
     cursor: pointer;
-    font-size: 18px;
-    background: #cfcfcf70;
+    font-size: 20px;
+    background: #b3b0b0b8;
     border-radius: 4px;
-    color: #ffde37;
+    top: -20px;
+    color: #e6ed8a;
   }
 
 span[addtofav^=true] > svg.isFavIcon {
