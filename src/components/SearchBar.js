@@ -42,7 +42,7 @@ const SearchBar = (props) => {
         name="searchImage"
         onChange={(e) => getPhotos(e)}
       />
-      {JSON.parse(localStorage.getItem("storageBookmarks")).length >0 && <FaRegBookmark
+      {localStorage.getItem("storageBookmarks") && JSON.parse(localStorage.getItem("storageBookmarks")).length >0 && <FaRegBookmark
         onClick={showFavorites}
         className="bookmarkIcon fa-solid"
       ></FaRegBookmark>}
