@@ -1,0 +1,55 @@
+
+  .imagesBody {   
+    display:grid;
+    align-items: stretch;
+    padding: 5%;
+  }
+
+ .image> * >img {
+    width: 13vw;
+    max-height: 15vh;
+    object-fit:cover;
+    -webkit-box-reflect:below 2px linear-gradient(transparent, transparent, #0004);
+    transform-origin:center;
+    transform:perspective(800px) rotateY(25deg);
+    transition:0.5s;
+    padding: 1%;
+  }
+  .imagesBody > .image {
+    justify-content: center;
+    align-items: center;
+    display: flow-root;
+    position: absolute;
+    background-color: #e4dededa;
+    overflow: scroll;
+    width: 87vw;
+    border: 1px solid #c9c8c8;
+    border-radius: 5px;
+  }
+  .imagesBody > .image:hover img {      
+    opacity:0.3;
+  }
+
+  .imagesBody > .image img:hover {
+    transform:perspective(800px)       rotateY(0deg);
+    opacity:1;
+  }
+
+   .image > span:hover .isFavIcon {
+    visibility:visible;  
+  }
+
+  .isFavIcon{
+    visibility: hidden;  
+    right: 5%;
+    position: relative;
+    cursor: pointer;
+    font-size: 18px;
+    background: #cfcfcf70;
+    border-radius: 4px;
+    color: #ffde37;
+  }
+
+span[addtofav^=true] > svg.isFavIcon {
+    background: #c97a25db;
+}

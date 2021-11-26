@@ -1,0 +1,35 @@
+.searchImageBar{    
+    transform: translate3d(0,35vh, 0);
+    transition: transform 300ms;
+    padding-top: 1%;
+}
+
+
+.searchImageBar > input{
+    outline: unset;
+    border: 1px solid;
+    width: 50vw;
+    font-size: 26px;
+    border-radius: 10px;
+    text-align: center;
+    border-color: #cfcfcf;
+}
+
+
+.slideUp { 
+    transform: translate3d(0, 1vh, 0);
+  }
+
+  .bookmarkIcon{
+    font-size: 30px;
+    padding: 10px;
+    padding-bottom: 0;
+    padding-top: 0px;
+    position: absolute;
+
+  }
+
+  .bookmarkIcon:hover{
+    fill: peru;
+    cursor: pointer;
+  }
