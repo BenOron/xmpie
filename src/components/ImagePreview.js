@@ -6,59 +6,71 @@ const ImagePreview = (props) => {
   const { imagesToShow } = props;
   let localdb = [];
 
-  const foundInFavorites = (localdb, imgSrc) => {
-    if (!localdb) {
-      return;
+  //Update the localDb
+  const updateLocaldb = () => {
+    if (!localStorage.getItem("storageBookmarks")) {
+      localStorage.setItem("storageBookmarks", "[]");
     }
-
-    if (JSON.parse(localStorage.getItem("storageBookmarks"))) {
-      localdb = JSON.parse(localStorage.getItem("storageBookmarks"));
+    localdb = JSON.parse(localStorage.getItem("storageBookmarks"));
+   
+    if(localdb && localdb.length < 1){
+      document.getElementsByClassName("bookmarkIcon")[0].classList.remove("showBtn");
     }
+  };
 
-    if (localdb.find((image) => image.previewURL === imgSrc)) {
+  //chacking if imgSrc exist in localStorgae
+  const foundInFavorites = (imgSrc) => {
+    updateLocaldb();
+    if (
+      localdb &&
+      localdb.length > 0 &&
+      localdb.find((image) => image.previewURL === imgSrc)
+    ) {
       return "true";
     }
   };
 
   const removeFromFav = (imgSrc) => {
-    if (JSON.parse(localStorage.getItem("storageBookmarks"))) {
-      localdb = JSON.parse(localStorage.getItem("storageBookmarks"));
-    }
+    updateLocaldb();
     let newLocalDb = localdb.filter(function (image) {
       return image.previewURL !== imgSrc;
     });
 
     localStorage.setItem("storageBookmarks", JSON.stringify(newLocalDb));
+    updateLocaldb();
+
   };
 
   const onBookmarkPress = (e) => {
-    let imgSrc = e?.currentTarget?.parentElement?.firstElementChild?.src;
-    if (JSON.parse(localStorage.getItem("storageBookmarks"))) {
-      localdb = JSON.parse(localStorage.getItem("storageBookmarks"));
-    }
+    let elm = e?.currentTarget?.parentElement;
 
-    if (foundInFavorites(localdb, imgSrc) === "true") {
+    //getting the src from image.
+    let imgSrc = elm?.firstElementChild.src;
+
+    //cheack if alrady exist in favorites then remove
+    if (foundInFavorites(imgSrc) === "true") {
       removeFromFav(imgSrc);
-      e.currentTarget.parentElement.removeAttribute("addtofav");
+      elm.removeAttribute("addtofav");
+
       return;
     }
 
-    if (!localdb || e.currentTarget.parentElement.hasAttribute("addtofav")) {
-      return;
-    }
+    //adding to local storage
+    addTolocalStorage(imgSrc);
 
-    if (!localStorage.getItem("storageBookmarks")) {
-      localStorage.setItem("storageBookmarks", "[]");
-    }
+    //adding attr to dom for css changes
+    elm.setAttribute("addtofav", "true");
+    document.getElementsByClassName("bookmarkIcon")[0].classList.add("showBtn");
+  };
 
+  //Add new entry to localStorage
+  const addTolocalStorage = (imgSrc) => {
     localdb.push({
       id: new Date().getMilliseconds(),
       previewURL: imgSrc,
     });
 
     localStorage.setItem("storageBookmarks", JSON.stringify(localdb));
-
-    e.currentTarget.parentElement.setAttribute("addtofav", "true");
   };
 
   return (
@@ -70,7 +82,7 @@ const ImagePreview = (props) => {
               return (
                 <span
                   key={image.id}
-                  addtofav={foundInFavorites(localdb, image.previewURL)}
+                  addtofav={foundInFavorites(image.previewURL)}
                 >
                   <img alt="notFound" src={image.previewURL}></img>
                   <BsStar
@@ -89,5 +101,3 @@ const ImagePreview = (props) => {
 };
 
 export default ImagePreview;
-
-

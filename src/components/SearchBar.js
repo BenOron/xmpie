@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState,useEffect } from "react";
 import { getPhotosFromServer } from "../utils";
 import ImagePreview from "./ImagePreview";
 import "./searchBar.css";
@@ -8,7 +8,7 @@ const SearchBar = (props) => {
   const [imagesToShow, setImagesToShow] = useState();
   const [favorites, setFavorites] = useState([]);
   const slideUpStyle = imagesToShow && imagesToShow.length > 0 ? "slideUp" : " ";
-
+  const showBookmarkBtn = favorites && favorites.length > 0 ? "showBtn" : ""; 
 
   const getPhotos = (e) => {
     if (e.target.value.length > 2) {
@@ -19,19 +19,24 @@ const SearchBar = (props) => {
       setImagesToShow(false);
     }
   };
- 
 
-  const showFavorites = () => {    
-    if (localStorage.getItem("storageBookmarks")) {
-        setImagesToShow(JSON.parse(localStorage.getItem("storageBookmarks")));
-      }
-  };
+  // const showFavorites = () => {
+  //   if (localStorage.getItem("storageBookmarks")) {
+  //       setImagesToShow(JSON.parse(localStorage.getItem("storageBookmarks")));
+  //     }
+  // };
 
   useEffect(() => {
+    setFavorites(JSON.parse(localStorage.getItem("storageBookmarks")));
+  },[]);
+
+  //Checking the localDb
+  const updatingFavorites = () => {
     if (localStorage.getItem("storageBookmarks")) {
-        setFavorites(JSON.parse(localStorage.getItem("storageBookmarks")));
-      }
-  }, []);
+       setFavorites(JSON.parse(localStorage.getItem("storageBookmarks")));
+       setImagesToShow(JSON.parse(localStorage.getItem("storageBookmarks")));
+    }
+  };
 
   return (
     <div className={" searchImageBar " + slideUpStyle}>
@@ -42,11 +47,15 @@ const SearchBar = (props) => {
         name="searchImage"
         onChange={(e) => getPhotos(e)}
       />
-      {localStorage.getItem("storageBookmarks") &&JSON.parse(localStorage.getItem("storageBookmarks")).length >0 && <FaRegBookmark
-        onClick={showFavorites}
-        className="bookmarkIcon fa-solid"
-      ></FaRegBookmark>}
-      {imagesToShow && imagesToShow.length > 0 && <ImagePreview imagesToShow={imagesToShow} />}
+
+        <FaRegBookmark
+          onClick={updatingFavorites}
+          className={showBookmarkBtn + " bookmarkIcon fa-solid"}
+        ></FaRegBookmark>
+      
+      {imagesToShow && imagesToShow.length > 0 && (
+        <ImagePreview imagesToShow={imagesToShow} />
+      )}
     </div>
   );
 };

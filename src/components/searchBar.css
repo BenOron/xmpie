@@ -21,6 +21,7 @@
   }
 
   .bookmarkIcon{
+    display: none;
     font-size: 30px;
     padding: 10px;
     padding-bottom: 0;
@@ -32,4 +33,8 @@
   .bookmarkIcon:hover{
     fill: peru;
     cursor: pointer;
+  }
+
+  .showBtn{
+    display: inline;
   }
